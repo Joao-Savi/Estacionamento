@@ -1,6 +1,10 @@
-import 'package:flutter/cupertino.dart';
+import 'package:estacionamento/app/components/menu_components.dart';
+import 'package:estacionamento/app/screens/detail_screen.dart';
+import 'package:estacionamento/app/screens/edit_screen.dart';
+
 import 'package:flutter/material.dart';
-import 'package:get/get_state_manager/src/rx_flutter/rx_obx_widget.dart';
+import 'package:get/get.dart';
+
 
 import '../controllers/parking_spot_controlller.dart';
 
@@ -37,6 +41,10 @@ class _MyHomePageState extends State<MyHomePage> {
 
           title: Text(widget.title),
         ),
+
+        drawer:
+        MenuComponent(context),
+
         body:
         Obx(() =>
         controller.isLoading.value
@@ -51,8 +59,34 @@ class _MyHomePageState extends State<MyHomePage> {
 
                   Card(
                     child:
-                    Text(controller.listParkingSpotObs[index].responsibleName),
-                  );
+                        Column(
+                          children: [
+                            ListTile(
+                              title: Text(controller.listParkingSpotObs[index].responsibleName),
+                              trailing: Wrap(
+                                spacing: 12,
+                                 children: <Widget>[
+                                   IconButton(
+                                       icon: const Icon(Icons.edit),
+                                       color:Colors.blue,
+                                       onPressed:(){
+                                         Get.to(const EditScreen(title: "Editar"));
+                                       }
+                                   ),
+                                   IconButton(
+                                       icon: const Icon(Icons.delete),
+                                       color:Colors.red,
+                                       onPressed:(){
+
+                                       }
+                                   ),
+
+                                 ],
+                            ),
+                            )],
+                        ),
+                      //
+                );
               }),
         )
         ) // This trailing comma makes auto-formatting nicer for build methods.
